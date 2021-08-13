@@ -1,4 +1,4 @@
-# m = avail*(tM/TM) + t/T + 1/206
+# m = (avail-1)*(tM/TM) + t/T + 1/206
 
 import csv      #read/write csv
 
@@ -79,17 +79,17 @@ for event in sports:        #iterate sports
         for noc in trial:
             row = []        #row to write
             row.append(trial[noc].getName())        #name of country
-            gP = trial[noc].getGold()/trial["Totals"].getGold()           # m = avail*(tM/TM) + t/T + 1/206
+            gP = trial[noc].getGold()/trial["Totals"].getGold()           # m = (avail-1)*(tM/TM) + t/T + 1/206
             gP = gP*(event[1]-1)
             gP = gP + trial[noc].getTotal()/trial["Totals"].getTotal()
             gP = gP+(1/206)
             row.append(gP)
-            sP = trial[noc].getSilver()/trial["Totals"].getSilver()      # m = avail*(tM/TM) + t/T + 1/206
+            sP = trial[noc].getSilver()/trial["Totals"].getSilver()      # m = (avail-1)*(tM/TM) + t/T + 1/206
             sP = sP*(event[1]-1)
             sP = sP + trial[noc].getTotal()/trial["Totals"].getTotal()
             sP = sP+(1/206)
             row.append(sP)
-            bP = trial[noc].getBronze()/trial["Totals"].getBronze()      # m = avail*(tM/TM) + t/T + 1/206
+            bP = trial[noc].getBronze()/trial["Totals"].getBronze()      # m = (avail-1)*(tM/TM) + t/T + 1/206
             bP = bP*(event[1]-1)
             if event[0] in ["Wrestling", "Boxing", "Judo", "Taekwondo"]:        #Physical sports hand out 2 bronze medals
                 bP = bP*2
