@@ -1,5 +1,5 @@
-# m = avail*(tM/TM) + t/T + 1/206
-# g = avail*(totalGoldByCountryInThatEvent/totalGoldsGivenAllTimeInThatEvent) + totalMedalsByCountryInThatEvent/TotalMedalsGivenAllTimeInThatEvent + country/totalcountries
+# m = (avail-1)*(tM/TM) + t/T + 1/206
+# g = (avail-1)*(totalGoldByCountryInThatEvent/totalGoldsGivenAllTimeInThatEvent) + totalMedalsByCountryInThatEvent/TotalMedalsGivenAllTimeInThatEvent + country/totalcountries
 
 
 #Scrapes Wikipedia URLs to collect historical data to training set and Tokyo 2020 data to test set.
