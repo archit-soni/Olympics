@@ -13,3 +13,5 @@ OBSERVATION - As the training set includes ALL Olympics, countries which have pe
 NOTE - For the purpose of this project, Soviet Union and Unified Team have been considered as Russia; West Germany, East Germany and United German Team have been considered as Germany; Czechoslovakia has been considered as Czech Republic.
 
 ## Files
+
+***Scraper.py*** - Scrapes Wikipedia URLs to save data inside csv files in Data folder. Data/Historic is training set data, Data/Original is test set data of 2020 Olympics
