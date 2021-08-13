@@ -1,3 +1,3 @@
 # Olympics
 
-Website - olympicsstatistic.web.app
+Website - https://olympicsstatistic.web.app
