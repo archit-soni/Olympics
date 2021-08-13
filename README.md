@@ -19,3 +19,5 @@ ALL RAW DATA CAN BE FOUND INSIDE data/
 ## Files
 
 ***Scraper.py*** - Scrapes Wikipedia URLs to save data inside csv files in Data folder. Data/Historic is training set data, Data/Original is test set data of 2020 Olympics
+
+***CountryFix.py*** - Renames defunct countries and other minor format unifications
