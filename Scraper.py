@@ -1,30 +1,33 @@
 # m = avail*(tM/TM) + t/T + 1/206
 # g = avail*(totalGoldByCountryInThatEvent/totalGoldsGivenAllTimeInThatEvent) + totalMedalsByCountryInThatEvent/TotalMedalsGivenAllTimeInThatEvent + country/totalcountries
 
-import requests
-import pandas as pd
-import os
-from bs4 import BeautifulSoup
-import csv
+
+#Scrapes Wikipedia URLs to collect historical data to training set and Tokyo 2020 data to test set.
+
+import requests         #to visit url
+import pandas as pd     #dataframes
+import os               #create folders and files
+from bs4 import BeautifulSoup   #html parser
+import csv              #create csv files
 
 
 def fill(sub):
-    with open("data/"+sub+"/"+title+".csv", "w", newline="", encoding="UTF8") as csvfile:
+    with open("data/"+sub+"/"+title+".csv", "w", newline="", encoding="UTF8") as csvfile:       #open file name in train/test folder
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(["Nation", "Gold", "Silver", "Bronze", "Total"])
+        csvwriter.writerow(["Nation", "Gold", "Silver", "Bronze", "Total"])                 #headings
         for row in df.iterrows():
             try:
-                nation = row[1]["Nation"].split('(')[0]
+                nation = row[1]["Nation"].split('(')[0]         #Some links have Nation, some links use NOC
             except:
                 nation = row[1]["NOC"].split('(')[0]
-            gold = row[1]["Gold"]
-            silver = row[1]["Silver"]
-            bronze = row[1]["Bronze"]
-            total = row[1]["Total"]
-            csvwriter.writerow([nation, gold, silver, bronze, total])
+            gold = row[1]["Gold"]           #number of gold medals
+            silver = row[1]["Silver"]       #no. of silver
+            bronze = row[1]["Bronze"]       #no. of bronze
+            total = row[1]["Total"]         #no. of total
+            csvwriter.writerow([nation, gold, silver, bronze, total])       #write a row into csv file
 
 
-urls = [
+urls = [                #URLs to browse, the links are of edits made before 2020 Olympics, so only data until 2016 is used.
     ("https://en.wikipedia.org/w/index.php?title=Athletics_at_the_Summer_Olympics&oldid=1030136223", 0),
     ("https://en.wikipedia.org/w/index.php?title=Diving_at_the_Summer_Olympics&oldid=998967076", 0),
     ("https://en.wikipedia.org/w/index.php?title=Swimming_at_the_Summer_Olympics&oldid=1032266138", 0),
@@ -54,7 +57,7 @@ urls = [
     ("https://en.wikipedia.org/w/index.php?title=Badminton_at_the_Summer_Olympics&oldid=1012341901", 0)
 ]
 
-urls2020 = [
+urls2020 = [            #2020 Olympics links
     "https://en.wikipedia.org/wiki/Diving_at_the_2020_Summer_Olympics",
     "https://en.wikipedia.org/wiki/Swimming_at_the_2020_Summer_Olympics",
     "https://en.wikipedia.org/wiki/Artistic_swimming_at_the_2020_Summer_Olympics",
@@ -86,24 +89,24 @@ urls2020 = [
 
 ]
 
-if not os.path.exists("data"):
+if not os.path.exists("data"):          #create folders if not exists
     os.makedirs("data")
     os.makedirs("data/historic")
     os.makedirs("data/original")
     os.makedirs("data/predicted")
 
-for url in urls:
+for url in urls:                #browse URLs
     response = requests.get(url[0])
     soup = BeautifulSoup(response.content, 'html.parser')
     title = soup.find(id="firstHeading")
-    title = title.string.split(' at')[0]
+    title = title.string.split(' at')[0]        #Name of sport
     body = soup.find_all(
-        'table', {"class": "wikitable sortable plainrowheaders jquery-tablesorter"})[url[1]]
+        'table', {"class": "wikitable sortable plainrowheaders jquery-tablesorter"})[url[1]]        #Get Medal Table
     df = pd.read_html(str(body))
-    df = pd.DataFrame(df[0])
-    fill("historic")
+    df = pd.DataFrame(df[0])            #Get dataframe from medal table
+    fill("historic")            #add sport data to training set
 
-for url in urls2020:
+for url in urls2020:            #browse URLs
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     title = soup.find(id="firstHeading")
@@ -112,4 +115,4 @@ for url in urls2020:
         'table', {"class": "wikitable sortable plainrowheaders jquery-tablesorter"})
     df = pd.read_html(str(body))
     df = pd.DataFrame(df[0])
-    fill("original")
+    fill("original")            #add sport data to test set
