@@ -25,3 +25,6 @@ ALL RAW DATA CAN BE FOUND INSIDE data/
 ***Probability.py*** - Calculates probabilities of a country winning a gold, silver and bronze medal in each discipline separately using training set. Formula used is (avail-1)\*(m/Tm) + t/T + (1/206) which roughly translates to (gold/silver/bronze available medals in 2020 - 1)\*(gold/silver/bronze respectively medals won by country in this sport historically) + (total medals won by country in this sport historically)/(total medals given out in this sport) + Additive Laplace smoothing for outlier outcomes.
 
 ***Plotter.py*** - Generates Scatter Plots and double-clustered triple-stacked Bar Graphs using Matplotlib
+
+
+Files inside src/ are used for front end display of website using React. Design of website has been modified using https://github.com/myogeshchavan97/react-accordion-demo/ as base.
